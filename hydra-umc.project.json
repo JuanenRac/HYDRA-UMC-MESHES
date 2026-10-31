@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "HYDRA-UMC",
+  "name": "HYDRA-UMC-MESHES",
+  "version": "0.1.0",
+  "role": "library",
+  "stack": "data",
+  "technologies": [
+    "GLB",
+    "JSON",
+    "SHA-256",
+    "STL"
+  ],
+  "deployment_target": "user-pc",
+  "maturity": "functional",
+  "evidence": "host-test",
+  "hardware_bound": false,
+  "family": "Complementary Tools",
+  "parent": "HYDRA-UMC-STUDIO",
+  "build": "python tools/verify_pack.py",
+  "notes": "The shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published once as a release package instead of being copied into each repository. The release carries one archive with every distinct mesh stored once and a manifest with the SHA-256 of the archive and of each file; HYDRA-UMC-STUDIO and HYDRA-UMC-SUITE download it on demand and check every file against the manifest before writing anything. The repository holds only the manifest and its checksums; the check in CI confirms that the manifest and the checksums agree.",
+  "native_version": {
+    "file": "VERSION",
+    "pattern": "^(\d+)\.(\d+)\.(\d+)"
+  }
+}
