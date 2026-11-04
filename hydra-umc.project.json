@@ -22,5 +22,8 @@
   "native_version": {
     "file": "VERSION",
     "pattern": "^(\\d+)\\.(\\d+)\\.(\\d+)"
-  }
+  },
+  "depends_on": [
+    "HYDRA-UMC-STUDIO"
+  ]
 }
