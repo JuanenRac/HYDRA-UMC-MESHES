@@ -10,7 +10,7 @@ Mesh 3D condivise (STL e GLB) delle applicazioni desktop e web di HYDRA-UMC, pub
 |---|---|
 | Versione | `0.1.0` |
 | Maturità | Funzionale |
-| Test | 11 (`python -m pytest tests -q`) |
+| Test | 28 (`python -m pytest tests -q`) |
 | Tecnologia | GLB / JSON / SHA-256 / STL |
 | Su hardware reale | Non applicabile: nulla qui gira su hardware |
 
@@ -23,7 +23,7 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 | Area | Stato | Cosa significa qui |
 |---|---|---|
 | Software | 🟡 | Funziona per il suo scopo principale; la verifica di onestà qui sopra elenca ciò che manca ancora |
-| Test | 🟢 | 11 test automatici, eseguiti a ogni modifica |
+| Test | 🟢 | 28 test automatici, eseguiti a ogni modifica |
 | Hardware reale | ⚪ | Non applicabile: nulla qui gira su hardware |
 | Documentazione | 🟢 | README in otto lingue, verificato rispetto al manifesto a ogni modifica |
 
