@@ -4,6 +4,29 @@
 
 Gemeinsame 3D-Netze (STL und GLB) der Desktop- und Web-Apps von HYDRA-UMC, einmal als Release-Paket veröffentlicht, statt in jedes Repository kopiert zu werden.
 
+## 📋 Auf einen Blick
+
+| | |
+|---|---|
+| Version | `0.1.0` |
+| Reifegrad | Funktionsfähig |
+| Tests | 11 (`python -m pytest tests -q`) |
+| Technik | GLB / JSON / SHA-256 / STL |
+| Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |
+
+## 🚦 Projektstatus
+
+Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heute ist. Sie beruht auf dem, was das Repository zeigen kann (Tests, Builds, Läufe), nicht auf dem, was geplant ist.
+
+🟢 Fertig und überprüft · 🟡 Funktioniert, mit bekannten Grenzen · 🟠 Teilweise fertig oder noch nicht überprüft · 🔴 Nicht gemacht oder funktioniert nicht · ⚪ Nicht zutreffend
+
+| Bereich | Stand | Was das hier bedeutet |
+|---|---|---|
+| Software | 🟡 | Funktioniert für seinen Hauptzweck; die Ehrlichkeitsprüfung oben nennt, was noch fehlt |
+| Tests | 🟢 | 11 automatische Tests, bei jeder Änderung ausgeführt |
+| Echte Hardware | ⚪ | Nicht zutreffend: nichts hiervon läuft auf Hardware |
+| Dokumentation | 🟢 | README in acht Sprachen, bei jeder Änderung gegen das Manifest geprüft |
+
 ## Was es ist
 
 Das Release `meshes-1` enthält `hydra-umc-meshes-1.tgz`: jedes verschiedene Netz einmal gespeichert, mit einem Manifest (`meshes.pack.json`), das den SHA-256 des Pakets und jeder Datei auflistet.

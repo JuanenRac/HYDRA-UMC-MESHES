@@ -4,6 +4,29 @@
 
 Mallas 3D compartidas (STL y GLB) de las aplicaciones de escritorio y web de HYDRA-UMC, publicadas una sola vez como paquete de release en lugar de copiarlas en cada repositorio.
 
+## 📋 De un vistazo
+
+| | |
+|---|---|
+| Versión | `0.1.0` |
+| Madurez | Funcional |
+| Tests | 11 (`python -m pytest tests -q`) |
+| Tecnología | GLB / JSON / SHA-256 / STL |
+| En hardware real | No aplica: nada de esto se ejecuta en hardware |
+
+## 🚦 Estado del proyecto
+
+Cada línea es una parte de este repositorio y la luz dice hasta dónde llega hoy. Se escribe con lo que el repositorio puede demostrar (pruebas, compilaciones, ejecuciones), no con lo previsto.
+
+🟢 Hecho y verificado · 🟡 Funciona, con límites conocidos · 🟠 Hecho a medias o sin verificar · 🔴 Sin hacer o sin funcionar · ⚪ No aplica
+
+| Área | Estado | Qué significa aquí |
+|---|---|---|
+| Software | 🟡 | Funciona para su propósito principal; la comprobación de honestidad de arriba lista lo que aún falta |
+| Pruebas | 🟢 | 11 pruebas automáticas, ejecutadas en cada cambio |
+| Hardware real | ⚪ | No aplica: nada de esto se ejecuta en hardware |
+| Documentación | 🟢 | README en ocho idiomas, comprobado contra el manifiesto en cada cambio |
+
 ## Qué es
 
 La release `meshes-1` lleva `hydra-umc-meshes-1.tgz`: cada malla distinta guardada una sola vez, con un manifiesto (`meshes.pack.json`) que lista el SHA-256 del paquete y de cada fichero.
