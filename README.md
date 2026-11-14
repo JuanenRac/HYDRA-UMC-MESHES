@@ -4,6 +4,29 @@
 
 Shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published once as a release package instead of being copied into each repository.
 
+## 📋 At a glance
+
+| | |
+|---|---|
+| Version | `0.1.0` |
+| Maturity | Functional |
+| Tests | 11 (`python -m pytest tests -q`) |
+| Stack | GLB / JSON / SHA-256 / STL |
+| On real hardware | Not applicable: nothing here runs on hardware |
+
+## 🚦 Project status
+
+Each line is one part of this repository and the light says how far it is today. It is written from what the repository can show (tests, builds, runs), not from what is planned.
+
+🟢 Done and verified · 🟡 Works, with known limits · 🟠 Partly done or not verified yet · 🔴 Not done or not working · ⚪ Not applicable
+
+| Area | State | What it means here |
+|---|---|---|
+| Software | 🟡 | Works for its main purpose; the honesty check above lists what is still missing |
+| Tests | 🟢 | 11 automated tests, run on every change |
+| Real hardware | ⚪ | Not applicable: nothing here runs on hardware |
+| Documentation | 🟢 | README in eight languages, checked against the manifest on every change |
+
 ## What it is
 
 The release `meshes-1` carries `hydra-umc-meshes-1.tgz`: every distinct mesh stored once, with a manifest (`meshes.pack.json`) that lists the SHA-256 of the package and of each file.
