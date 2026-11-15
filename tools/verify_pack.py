@@ -5,10 +5,14 @@
 # GPL-3.0-or-later - see LICENSE
 #
 # Checks that the manifest of the mesh package (meshes.pack.json) and the checksum file (SHA256SUMS.txt) agree: same archive name, same SHA-256,
-# well-formed hashes for every file, no path that leaves the package and no duplicate path. Standard library only.
+# well-formed hashes for every file, no path that leaves the package and no duplicate path. With --archive it also checks a downloaded archive against the
+# manifest (size and SHA-256) and with --extracted a folder it was unpacked into (every file present, of the size and the SHA-256 the manifest says, and no
+# file the manifest does not list). Standard library only.
 # =============================================================================
 from __future__ import annotations
 
+import argparse
+import hashlib
 import json
 import re
 import sys
@@ -47,8 +51,68 @@ def check(root: Path = ROOT) -> list[str]:
     return problems
 
 
-def main() -> int:
-    problems = check()
+def _file_digest(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def check_archive(archive: Path, root: Path = ROOT) -> list[str]:
+    """The problems of a downloaded archive: absent, of another size than the manifest says (an interrupted or padded download) or with another SHA-256."""
+    pack = json.loads((root / "meshes.pack.json").read_text(encoding="utf-8")).get("pack", {})
+    if not archive.is_file():
+        return [f"the archive {archive.name} is missing"]
+    problems: list[str] = []
+    size = pack.get("size")
+    actual = archive.stat().st_size
+    if isinstance(size, int) and actual != size:
+        problems.append(f"the archive has {actual} bytes and the manifest says {size}: the download is cut short or padded")
+    found = _file_digest(archive)
+    if found != pack.get("sha256"):
+        problems.append(f"the SHA-256 of the archive is {found}, not the one of the manifest")
+    return problems
+
+
+def check_extracted(directory: Path, root: Path = ROOT) -> list[str]:
+    """The problems of a folder the archive was unpacked into: a file missing, of another size or another SHA-256, or a file the manifest does not list."""
+    manifest = json.loads((root / "meshes.pack.json").read_text(encoding="utf-8"))
+    problems: list[str] = []
+    listed: set[str] = set()
+    for entry in manifest.get("files", []):
+        path = str(entry.get("path", ""))
+        if path.startswith(("/", "\\")) or ".." in Path(path).parts or ":" in path:
+            problems.append(f"path outside the package: {path!r}")
+            continue
+        listed.add(path)
+        target = directory / path
+        if not target.is_file():
+            problems.append(f"missing: {path}")
+            continue
+        size = entry.get("size")
+        if isinstance(size, int) and target.stat().st_size != size:
+            problems.append(f"wrong size: {path}")
+        elif _file_digest(target) != entry.get("sha256"):
+            problems.append(f"wrong SHA-256: {path}")
+    for found in sorted(p for p in directory.rglob("*") if p.is_file()):
+        relative = found.relative_to(directory).as_posix()
+        if relative not in listed:
+            problems.append(f"not in the manifest: {relative}")
+    return problems
+
+
+def main(argv: list[str] | tuple[str, ...] = (), root: Path | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Check the manifest of the mesh package, and optionally a downloaded archive and the folder it was unpacked into.")
+    parser.add_argument("--archive", type=Path, help="a downloaded archive to check against the manifest")
+    parser.add_argument("--extracted", type=Path, help="a folder the archive was unpacked into")
+    args = parser.parse_args(list(argv))
+    problems = check() if root is None else check(root)
+    where = ROOT if root is None else root
+    if args.archive is not None:
+        problems += check_archive(args.archive, where)
+    if args.extracted is not None:
+        problems += check_extracted(args.extracted, where)
     for line in problems:
         print("FAIL:", line)
     print("VERIFY_PACK=PASS" if not problems else "VERIFY_PACK=FAIL")
@@ -56,4 +120,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

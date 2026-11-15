@@ -10,7 +10,7 @@ Mallas 3D compartidas (STL y GLB) de las aplicaciones de escritorio y web de HYD
 |---|---|
 | Versión | `0.1.0` |
 | Madurez | Funcional |
-| Tests | 28 (`python -m pytest tests -q`) |
+| Tests | 34 (`python -m pytest tests -q`) |
 | Tecnología | GLB / JSON / SHA-256 / STL |
 | En hardware real | No aplica: nada de esto se ejecuta en hardware |
 
@@ -23,7 +23,7 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 | Área | Estado | Qué significa aquí |
 |---|---|---|
 | Software | 🟡 | Funciona para su propósito principal; la comprobación de honestidad de arriba lista lo que aún falta |
-| Pruebas | 🟢 | 28 pruebas automáticas, ejecutadas en cada cambio |
+| Pruebas | 🟢 | 34 pruebas automáticas, ejecutadas en cada cambio |
 | Hardware real | ⚪ | No aplica: nada de esto se ejecuta en hardware |
 | Documentación | 🟢 | README en ocho idiomas, comprobado contra el manifiesto en cada cambio |
 
