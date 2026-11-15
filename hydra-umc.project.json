@@ -13,12 +13,12 @@
   ],
   "deployment_target": "user-pc",
   "maturity": "functional",
-  "evidence": "host-test",
+  "evidence": "simulator",
   "hardware_bound": false,
   "family": "Complementary Tools",
   "parent": "HYDRA-UMC-STUDIO",
   "build": "python tools/verify_pack.py",
-  "notes": "The shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published once as a release package instead of being copied into each repository. The release carries one archive with every distinct mesh stored once and a manifest with the SHA-256 of the archive and of each file; HYDRA-UMC-STUDIO and HYDRA-UMC-SUITE download it on demand and check every file against the manifest before writing anything. The repository holds only the manifest and its checksums; the check in CI confirms that the manifest and the checksums agree.",
+  "notes": "The shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published once as a release package instead of being copied into each repository. The release carries one archive with every distinct mesh stored once and a manifest with the SHA-256 of the archive and of each file; HYDRA-UMC-STUDIO and HYDRA-UMC-SUITE download it on demand and check every file against the manifest before writing anything. The repository holds only the manifest and its checksums; the check in CI confirms that the manifest and the checksums agree. The same check can verify a downloaded archive and the folder it was unpacked into, and a simulated download that fails in every way (cut short, changed, padded, empty, absent, files missing or altered) is tested; the download by the apps from the real release has not been run.",
   "native_version": {
     "file": "VERSION",
     "pattern": "^(\\d+)\\.(\\d+)\\.(\\d+)"
