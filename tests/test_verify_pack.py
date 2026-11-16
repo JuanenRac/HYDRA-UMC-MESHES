@@ -71,11 +71,20 @@ def m_path(root: Path, index: int) -> str:
     return json.loads((root / "meshes.pack.json").read_text(encoding="utf-8"))["files"][index]["path"]
 
 
-@pytest.mark.parametrize("path", ["/etc/passwd", "\\windows\\system32", "../outside.stl", "parts/../../outside.stl", "C:/x.stl", "parts/a:b.stl"])
+@pytest.mark.parametrize(
+    "path",
+    ["/etc/passwd", "\\windows\\system32", "../outside.stl", "parts/../../outside.stl", "C:/x.stl", "parts/a:b.stl", "a\\..\\..\\x.stl", "parts\\..\\x.stl", "", "parts//x.stl", "./x.stl", "parts/./x.stl"],
+)
 def test_a_path_that_leaves_the_package_is_named(tmp_path: Path, path: str):
     make_pack(tmp_path, random.Random(SEED))
     rewrite(tmp_path, lambda m: m["files"][0].__setitem__("path", path))
     assert any(problem.startswith("path outside the package") and repr(path) in problem for problem in verify_pack.check(tmp_path))
+
+
+def test_a_path_that_differs_from_another_only_in_case_is_named(tmp_path: Path):
+    make_pack(tmp_path, random.Random(SEED))
+    rewrite(tmp_path, lambda m: m["files"].append(dict(m["files"][2], path=m["files"][2]["path"].upper())))
+    assert any("differs from another only in case" in problem for problem in verify_pack.check(tmp_path))
 
 
 def test_a_path_listed_twice_is_named_once_for_each_repeat(tmp_path: Path):
