@@ -120,6 +120,48 @@ def test_an_archive_without_a_name_or_with_a_malformed_hash_is_named(tmp_path: P
     assert "the manifest has no archive name or a malformed archive SHA-256" in verify_pack.check(tmp_path)
 
 
+@pytest.mark.parametrize("size", [-1, 1.5, "100", True, None, [1]])
+def test_a_size_that_is_not_a_whole_number_of_bytes_is_named(tmp_path: Path, size):
+    make_pack(tmp_path, random.Random(SEED))
+    rewrite(tmp_path, lambda m: m["pack"].__setitem__("size", size))
+    assert any("size of the archive" in line for line in verify_pack.check(tmp_path))
+    make_pack(tmp_path, random.Random(SEED))
+    rewrite(tmp_path, lambda m: m["files"][0].__setitem__("size", size))
+    assert any("is not a whole number of bytes" in line and "part" in line for line in verify_pack.check(tmp_path))
+
+
+def test_a_good_size_and_address_say_nothing(tmp_path: Path):
+    manifest = make_pack(tmp_path, random.Random(SEED))
+    name = manifest["pack"]["file"]
+    rewrite(tmp_path, lambda m: m["pack"].update(size=0, url=f"https://example.test/releases/download/meshes-1/{name}"))
+    assert verify_pack.check(tmp_path) == []
+
+
+@pytest.mark.parametrize(
+    "template",
+    [
+        "http://example.test/dl/{name}",
+        "ftp://example.test/dl/{name}",
+        "file:///tmp/{name}",
+        "https:///dl/{name}",
+        "https://user:secret@example.test/dl/{name}",
+        "https://example.test/dl/{name}?x=1",
+        "https://example.test/dl/{name}#frag",
+        "https://example.test/dl/other.tgz",
+        "https://example.test/dl/{name}.sig",
+        "https://example.test/dl/",
+        "",
+    ],
+)
+def test_a_download_address_that_is_not_https_or_not_the_archive_is_named(tmp_path: Path, template: str):
+    manifest = make_pack(tmp_path, random.Random(SEED))
+    url = template.format(name=manifest["pack"]["file"])
+    rewrite(tmp_path, lambda m: m["pack"].__setitem__("url", url))
+    assert any("download address" in line for line in verify_pack.check(tmp_path))
+    rewrite(tmp_path, lambda m: m["pack"].__setitem__("url", 5))
+    assert any("not a text" in line for line in verify_pack.check(tmp_path))
+
+
 def test_a_manifest_with_no_files_is_named(tmp_path: Path):
     make_pack(tmp_path, random.Random(SEED))
     rewrite(tmp_path, lambda m: m.__setitem__("files", []))

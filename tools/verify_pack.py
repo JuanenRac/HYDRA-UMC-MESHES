@@ -5,7 +5,7 @@
 # GPL-3.0-or-later - see LICENSE
 #
 # Checks that the manifest of the mesh package (meshes.pack.json) and the checksum file (SHA256SUMS.txt) agree: same archive name, same SHA-256,
-# well-formed hashes for every file, no path that leaves the package and no duplicate path. With --archive it also checks a downloaded archive against the
+# well-formed hashes for every file, sizes that are whole numbers, an https download address that ends with the archive name, no path that leaves the package and no duplicate path. With --archive it also checks a downloaded archive against the
 # manifest (size and SHA-256) and with --extracted a folder it was unpacked into (every file present, of the size and the SHA-256 the manifest says, and no
 # file the manifest does not list). Standard library only.
 # =============================================================================
@@ -17,6 +17,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 HEX = re.compile(r"^[0-9a-f]{64}$")
@@ -34,6 +35,25 @@ def leaves_the_package(path: str) -> bool:
     )
 
 
+def is_size(value: object) -> bool:
+    """A size is a whole number of bytes, zero or more (a boolean is not one, nor is a string or a fraction)."""
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+
+def url_problem(url: object, name: object) -> str | None:
+    """Why the download address is not acceptable (None when it is): it must be an https address with a host, no credentials, query or fragment, whose path ends with the archive name."""
+    if not isinstance(url, str) or not url:
+        return "the download address of the archive is not a text"
+    parts = urlsplit(url)
+    if parts.scheme != "https" or not parts.hostname:
+        return f"the download address must be an https address with a host: {url!r}"
+    if parts.username is not None or parts.password is not None or parts.query or parts.fragment:
+        return f"the download address must not carry credentials, a query or a fragment: {url!r}"
+    if not isinstance(name, str) or not name or parts.path.rsplit("/", 1)[-1] != name:
+        return f"the download address does not end with the archive name {name!r}: {url!r}"
+    return None
+
+
 def check(root: Path = ROOT) -> list[str]:
     problems: list[str] = []
     manifest = json.loads((root / "meshes.pack.json").read_text(encoding="utf-8"))
@@ -41,6 +61,12 @@ def check(root: Path = ROOT) -> list[str]:
     name, digest = pack.get("file"), pack.get("sha256")
     if not name or not HEX.match(str(digest or "")):
         problems.append("the manifest has no archive name or a malformed archive SHA-256")
+    if "size" in pack and not is_size(pack["size"]):
+        problems.append(f"the size of the archive is not a whole number of bytes: {pack['size']!r}")
+    if "url" in pack:
+        reason = url_problem(pack["url"], name)
+        if reason:
+            problems.append(reason)
     sums = {}
     for line in (root / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines():
         if line.strip():
@@ -53,6 +79,8 @@ def check(root: Path = ROOT) -> list[str]:
         path = str(entry.get("path", ""))
         if not HEX.match(str(entry.get("sha256", ""))):
             problems.append(f"malformed SHA-256 for {path!r}")
+        if "size" in entry and not is_size(entry["size"]):
+            problems.append(f"the size of {path!r} is not a whole number of bytes: {entry['size']!r}")
         if leaves_the_package(path):
             problems.append(f"path outside the package: {path!r}")
         if path in seen:
