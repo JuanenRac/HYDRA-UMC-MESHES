@@ -22,6 +22,18 @@ ROOT = Path(__file__).resolve().parent.parent
 HEX = re.compile(r"^[0-9a-f]{64}$")
 
 
+def leaves_the_package(path: str) -> bool:
+    """True for a path that is empty, absolute, drive-lettered, or climbs out of the package on ANY system: the check runs on Linux, where a
+    backslash is an ordinary character, but the apps that unpack the package also run on Windows, where it separates folders."""
+    parts = path.replace("\\", "/").split("/")
+    return (
+        not path
+        or path.startswith(("/", "\\"))
+        or ":" in path
+        or any(part in ("", ".", "..") for part in parts)
+    )
+
+
 def check(root: Path = ROOT) -> list[str]:
     problems: list[str] = []
     manifest = json.loads((root / "meshes.pack.json").read_text(encoding="utf-8"))
@@ -41,10 +53,12 @@ def check(root: Path = ROOT) -> list[str]:
         path = str(entry.get("path", ""))
         if not HEX.match(str(entry.get("sha256", ""))):
             problems.append(f"malformed SHA-256 for {path!r}")
-        if path.startswith(("/", "\\")) or ".." in Path(path).parts or ":" in path:
+        if leaves_the_package(path):
             problems.append(f"path outside the package: {path!r}")
         if path in seen:
             problems.append(f"duplicate path: {path!r}")
+        elif path.casefold() in {other.casefold() for other in seen}:
+            problems.append(f"path that differs from another only in case (a clash on Windows and macOS): {path!r}")
         seen.add(path)
     if not manifest.get("files"):
         problems.append("the manifest lists no files")
@@ -82,7 +96,7 @@ def check_extracted(directory: Path, root: Path = ROOT) -> list[str]:
     listed: set[str] = set()
     for entry in manifest.get("files", []):
         path = str(entry.get("path", ""))
-        if path.startswith(("/", "\\")) or ".." in Path(path).parts or ":" in path:
+        if leaves_the_package(path):
             problems.append(f"path outside the package: {path!r}")
             continue
         listed.add(path)
