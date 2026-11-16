@@ -22,7 +22,7 @@ Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'
 
 | Domaine | État | Ce que cela veut dire ici |
 |---|---|---|
-| Logiciel | 🟡 | Fonctionne pour son usage principal ; la vérification d'honnêteté ci-dessus liste ce qui manque encore |
+| Logiciel | 🟡 | Fonctionne pour son usage principal ; la vérification d'honnêteté de ce README liste ce qui manque encore |
 | Tests | 🟢 | 34 tests automatiques, exécutés à chaque modification |
 | Matériel réel | ⚪ | Sans objet : rien ici ne s'exécute sur du matériel |
 | Documentation | 🟢 | README en huit langues, vérifié par rapport au manifeste à chaque modification |

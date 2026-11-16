@@ -22,7 +22,7 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 
 | Area | Stato | Cosa significa qui |
 |---|---|---|
-| Software | 🟡 | Funziona per il suo scopo principale; la verifica di onestà qui sopra elenca ciò che manca ancora |
+| Software | 🟡 | Funziona per il suo scopo principale; la verifica di onestà di questo README elenca ciò che manca ancora |
 | Test | 🟢 | 34 test automatici, eseguiti a ogni modifica |
 | Hardware reale | ⚪ | Non applicabile: nulla qui gira su hardware |
 | Documentazione | 🟢 | README in otto lingue, verificato rispetto al manifesto a ogni modifica |

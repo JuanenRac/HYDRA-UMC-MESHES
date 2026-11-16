@@ -22,7 +22,7 @@ Each line is one part of this repository and the light says how far it is today.
 
 | Area | State | What it means here |
 |---|---|---|
-| Software | 🟡 | Works for its main purpose; the honesty check above lists what is still missing |
+| Software | 🟡 | Works for its main purpose; the honesty check of this README lists what is still missing |
 | Tests | 🟢 | 34 automated tests, run on every change |
 | Real hardware | ⚪ | Not applicable: nothing here runs on hardware |
 | Documentation | 🟢 | README in eight languages, checked against the manifest on every change |
