@@ -22,7 +22,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 
 | Área | Estado | O que significa aqui |
 |---|---|---|
-| Software | 🟡 | Funciona para o seu propósito principal; a verificação de honestidade acima lista o que ainda falta |
+| Software | 🟡 | Funciona para o seu propósito principal; a verificação de honestidade deste README lista o que ainda falta |
 | Testes | 🟢 | 34 testes automáticos, executados a cada alteração |
 | Hardware real | ⚪ | Não aplicável: nada aqui corre em hardware |
 | Documentação | 🟢 | README em oito idiomas, verificado contra o manifesto a cada alteração |
