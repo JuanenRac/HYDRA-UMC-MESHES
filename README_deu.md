@@ -10,7 +10,7 @@ Gemeinsame 3D-Netze (STL und GLB) der Desktop- und Web-Apps von HYDRA-UMC, einma
 |---|---|
 | Version | `0.1.0` |
 | Reifegrad | Funktionsfähig |
-| Tests | 34 (`python -m pytest tests -q`) |
+| Tests | 59 (`python -m pytest tests -q`) |
 | Technik | GLB / JSON / SHA-256 / STL |
 | Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |
 
@@ -23,7 +23,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 | Bereich | Stand | Was das hier bedeutet |
 |---|---|---|
 | Software | 🟡 | Funktioniert für seinen Hauptzweck; die Ehrlichkeitsprüfung in diesem README nennt, was noch fehlt |
-| Tests | 🟢 | 34 automatische Tests, bei jeder Änderung ausgeführt |
+| Tests | 🟢 | 59 automatische Tests, bei jeder Änderung ausgeführt |
 | Echte Hardware | ⚪ | Nicht zutreffend: nichts hiervon läuft auf Hardware |
 | Dokumentation | 🟢 | README in acht Sprachen, bei jeder Änderung gegen das Manifest geprüft |
 
