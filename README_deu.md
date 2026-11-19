@@ -8,7 +8,7 @@ Gemeinsame 3D-Netze (STL und GLB) der Desktop- und Web-Apps von HYDRA-UMC, einma
 
 | | |
 |---|---|
-| Version | `0.1.0` |
+| Version | `0.1.1` |
 | Reifegrad | Funktionsfähig |
 | Tests | 59 (`python -m pytest tests -q`) |
 | Technik | GLB / JSON / SHA-256 / STL |

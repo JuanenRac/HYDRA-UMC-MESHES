@@ -8,7 +8,7 @@ HYDRA-UMC 桌面和网页应用共用的 3D 网格（STL 和 GLB），以发布�
 
 | | |
 |---|---|
-| 版本 | `0.1.0` |
+| 版本 | `0.1.1` |
 | 成熟度 | 可用 |
 | 测试 | 59 (`python -m pytest tests -q`) |
 | 技术栈 | GLB / JSON / SHA-256 / STL |

@@ -8,7 +8,7 @@ Shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published 
 
 | | |
 |---|---|
-| Version | `0.1.0` |
+| Version | `0.1.1` |
 | Maturity | Functional |
 | Tests | 59 (`python -m pytest tests -q`) |
 | Stack | GLB / JSON / SHA-256 / STL |

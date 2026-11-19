@@ -8,7 +8,7 @@ Mallas 3D compartidas (STL y GLB) de las aplicaciones de escritorio y web de HYD
 
 | | |
 |---|---|
-| Versión | `0.1.0` |
+| Versión | `0.1.1` |
 | Madurez | Funcional |
 | Tests | 59 (`python -m pytest tests -q`) |
 | Tecnología | GLB / JSON / SHA-256 / STL |
