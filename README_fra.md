@@ -8,7 +8,7 @@ Maillages 3D partagés (STL et GLB) des applications de bureau et web de HYDRA-U
 
 | | |
 |---|---|
-| Version | `0.1.0` |
+| Version | `0.1.1` |
 | Maturité | Fonctionnel |
 | Tests | 59 (`python -m pytest tests -q`) |
 | Technologie | GLB / JSON / SHA-256 / STL |

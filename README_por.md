@@ -8,7 +8,7 @@ Malhas 3D partilhadas (STL e GLB) das aplicações de ambiente de trabalho e web
 
 | | |
 |---|---|
-| Versão | `0.1.0` |
+| Versão | `0.1.1` |
 | Maturidade | Funcional |
 | Testes | 59 (`python -m pytest tests -q`) |
 | Tecnologia | GLB / JSON / SHA-256 / STL |
