@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **The content of the archive can be checked before it is unpacked, and a copy of the manifest can be compared:** `verify_pack.py --archive-members FILE.tgz` reads the archive as a stream and refuses links, files the manifest does not list, wrong sizes or SHA-256 and missing files; `--consumer-manifest PATH` says which entries of another program's copy of `meshes.pack.json` differ. `SHA256SUMS.txt` now lists the manifest itself.
+
 ## [0.1.1]
 
 - **The check of the package manifest also checks the sizes and the download address:** the size of the archive and of every file, when given, must be a whole number of bytes (zero or more; a boolean, a fraction, a negative or a text is named), and the download address of the archive must be an https address with a host, without credentials, query or fragment, whose last path part is the archive name. The check reads the address as a URL (it does not search the text). Tests cover each case.
