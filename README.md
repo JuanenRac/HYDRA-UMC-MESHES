@@ -10,7 +10,7 @@ Shared 3D meshes (STL and GLB) of the HYDRA-UMC desktop and web apps, published 
 |---|---|
 | Version | `0.1.1` |
 | Maturity | Functional |
-| Tests | 59 (`python -m pytest tests -q`) |
+| Tests | 70 (`python -m pytest tests -q`) |
 | Stack | GLB / JSON / SHA-256 / STL |
 | On real hardware | Not applicable: nothing here runs on hardware |
 
@@ -23,7 +23,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | Works for its main purpose; the honesty check of this README lists what is still missing |
-| Tests | 🟢 | 59 automated tests, run on every change |
+| Tests | 🟢 | 70 automated tests, run on every change |
 | Real hardware | ⚪ | Not applicable: nothing here runs on hardware |
 | Documentation | 🟢 | README in eight languages, checked against the manifest on every change |
 

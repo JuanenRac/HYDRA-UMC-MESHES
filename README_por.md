@@ -10,7 +10,7 @@ Malhas 3D partilhadas (STL e GLB) das aplicações de ambiente de trabalho e web
 |---|---|
 | Versão | `0.1.1` |
 | Maturidade | Funcional |
-| Testes | 59 (`python -m pytest tests -q`) |
+| Testes | 70 (`python -m pytest tests -q`) |
 | Tecnologia | GLB / JSON / SHA-256 / STL |
 | Em hardware real | Não aplicável: nada aqui corre em hardware |
 
@@ -23,7 +23,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 | Área | Estado | O que significa aqui |
 |---|---|---|
 | Software | 🟡 | Funciona para o seu propósito principal; a verificação de honestidade deste README lista o que ainda falta |
-| Testes | 🟢 | 59 testes automáticos, executados a cada alteração |
+| Testes | 🟢 | 70 testes automáticos, executados a cada alteração |
 | Hardware real | ⚪ | Não aplicável: nada aqui corre em hardware |
 | Documentação | 🟢 | README em oito idiomas, verificado contra o manifesto a cada alteração |
 

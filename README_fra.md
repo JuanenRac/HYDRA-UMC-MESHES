@@ -10,7 +10,7 @@ Maillages 3D partagés (STL et GLB) des applications de bureau et web de HYDRA-U
 |---|---|
 | Version | `0.1.1` |
 | Maturité | Fonctionnel |
-| Tests | 59 (`python -m pytest tests -q`) |
+| Tests | 70 (`python -m pytest tests -q`) |
 | Technologie | GLB / JSON / SHA-256 / STL |
 | Sur matériel réel | Sans objet : rien ici ne s'exécute sur du matériel |
 
@@ -23,7 +23,7 @@ Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'
 | Domaine | État | Ce que cela veut dire ici |
 |---|---|---|
 | Logiciel | 🟡 | Fonctionne pour son usage principal ; la vérification d'honnêteté de ce README liste ce qui manque encore |
-| Tests | 🟢 | 59 tests automatiques, exécutés à chaque modification |
+| Tests | 🟢 | 70 tests automatiques, exécutés à chaque modification |
 | Matériel réel | ⚪ | Sans objet : rien ici ne s'exécute sur du matériel |
 | Documentation | 🟢 | README en huit langues, vérifié par rapport au manifeste à chaque modification |
 
