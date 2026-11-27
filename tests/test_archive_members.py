@@ -61,5 +61,34 @@ class Tests(unittest.TestCase):
         self.assertIn("a/one.stl, two.stl", verify_pack.check_consumer_manifest(copy, self.root)[0])
 
 
+class RefusalTests(Tests):
+    def test_unreadable_inputs_are_said(self):
+        self.assertIn("is missing", verify_pack.check_consumer_manifest(self.root / "no.json", self.root)[0])
+        bad = self.root / "bad.json"
+        bad.write_text("{", encoding="utf-8")
+        self.assertIn("cannot be read", verify_pack.check_consumer_manifest(bad, self.root)[0])
+        garbage = self.root / "garbage.tgz"
+        garbage.write_bytes(b"not a tar")
+        self.assertIn("cannot be read", verify_pack.check_archive_members(garbage, self.root)[0])
+
+    def test_twice_wrong_size_and_folders(self):
+        found = verify_pack.check_archive_members(self.pack([("two.stl", b"two"), ("two.stl", b"two"), ("a/one.stl", b"longer")]), self.root)
+        self.assertEqual([line.split(":")[0] for line in found], ["twice in the archive", "wrong size"])
+        archive = self.root / "folders.tgz"
+        with tarfile.open(archive, "w:gz") as tar:
+            info = tarfile.TarInfo("a")
+            info.type = tarfile.DIRTYPE
+            tar.addfile(info)
+        self.assertEqual(len(verify_pack.check_archive_members(archive, self.root)), 2)
+
+    def test_the_command_reports_both_new_checks(self):
+        (self.root / "SHA256SUMS.txt").write_text("", encoding="utf-8")
+        self.assertEqual(verify_pack.main(["--archive-members", str(self.pack([])), "--consumer-manifest", str(self.root / "no.json")], root=self.root), 1)
+
+    def test_a_published_checksum_with_another_manifest_hash_is_named(self):
+        (self.root / "SHA256SUMS.txt").write_text("0" * 64 + "  meshes.pack.json\n", encoding="utf-8")
+        self.assertTrue(any("meshes.pack.json" in line for line in verify_pack.check(self.root)))
+
+
 if __name__ == "__main__":
     unittest.main()
